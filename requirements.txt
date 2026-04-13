@@ -1,0 +1,4 @@
+pystac-client>=0.9.0
+boto3>=1.35.0
+aiohttp>=3.9.0
+shapely>=2.0.0
