@@ -8,7 +8,7 @@ import os
 # 项目根目录（代码所在目录）
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # 下载数据根目录
-LANDSAT_DATA_ROOT = os.path.join(PROJECT_ROOT, "Landsat_zj")
+LANDSAT_DATA_ROOT = os.path.join(PROJECT_ROOT, "Landsat_china")
 # 日志目录
 LOGS_DIR = os.path.join(LANDSAT_DATA_ROOT, "logs")
 # SQLite 数据库路径
@@ -30,10 +30,8 @@ STAC_COLLECTION_L1 = "landsat-c2l1"
 STAC_COLLECTION_L2 = "landsat-c2l2-sr"
 
 # ========== AWS S3 配置 ==========
-#AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
-#AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-AWS_ACCESS_KEY_ID = "YOUR_AWS_ACCESS_KEY_ID"
-AWS_SECRET_ACCESS_KEY = "YOUR_AWS_SECRET_ACCESS_KEY"
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
 AWS_REGION = "us-east-1"
 S3_BUCKET = "usgs-landsat"
 S3_PREFIX = "collection02/landsat"
