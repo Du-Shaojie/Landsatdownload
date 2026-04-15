@@ -8,7 +8,7 @@ STAC 查询与场景选择 - 按月/Path/Row 查询 Landsat 8/9 L2 场景，
 
 import json
 import logging
-from datetime import date
+from datetime import date, timedelta
 
 import config
 from pystac_client import Client
@@ -28,14 +28,16 @@ def _get_boundary_geometry():
 
 
 def year_month_to_range(year_month: str) -> tuple[str, str]:
-    """将 'YYYYMM' 转换为 ('YYYY-MM-01', 'YYYY-MM-DD') 日期范围"""
+    """将 'YYYYMM' 转换为 ('YYYY-MM-01', 'YYYY-MM-DD') 日期范围（当月最后一天）"""
     year = int(year_month[:4])
     month = int(year_month[4:6])
     start = f"{year:04d}-{month:02d}-01"
+    # 下月1日减1天 = 当月最后一天
     if month == 12:
-        end = f"{year + 1:04d}-01-01"
+        last_day = date(year + 1, 1, 1) - timedelta(days=1)
     else:
-        end = f"{year:04d}-{month + 1:02d}-01"
+        last_day = date(year, month + 1, 1) - timedelta(days=1)
+    end = last_day.isoformat()
     return start, end
 
 

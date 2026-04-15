@@ -3,12 +3,16 @@ Landsat 8/9 影像下载系统 - 配置中心
 """
 
 import os
+from dotenv import load_dotenv
+
+# 加载 .env 文件
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 
 # ========== 路径配置 ==========
 # 项目根目录（代码所在目录）
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # 下载数据根目录
-LANDSAT_DATA_ROOT = os.path.join(PROJECT_ROOT, "Landsat_china")
+LANDSAT_DATA_ROOT = os.path.join("/mnt/ht2-nas2/EO_Pretrain_Data/", "Landsat_china")
 # 日志目录
 LOGS_DIR = os.path.join(LANDSAT_DATA_ROOT, "logs")
 # SQLite 数据库路径
@@ -39,7 +43,7 @@ S3_PREFIX = "collection02/landsat"
 # ========== 时间范围 ==========
 # 2025年4月 至 2025年9月
 YEAR_MONTHS = [
-    "202504", 
+    "202506", 
 ]
 
 # ========== 云量与筛选 ==========
@@ -47,7 +51,7 @@ MAX_CLOUD_COVER = 100  # 最大允许云量（百分比）
 
 # ========== 并发配置 ==========
 MAX_CONCURRENT_SCENES = 8   # 同时下载的场景数
-MAX_CONCURRENCY = 10        # 单文件分块下载并发数
+MAX_CONCURRENCY = 12        # 单文件分块下载并发数
 MULTIPART_THRESHOLD = 16 * 1024 * 1024   # 16MB，超过此大小走分块
 MULTIPART_CHUNKSIZE = 16 * 1024 * 1024   # 每块 16MB
 
