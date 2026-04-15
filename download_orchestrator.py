@@ -50,12 +50,14 @@ class DownloadOrchestrator:
             return
 
         start_time = time.time()
-        coros = [
-            self._process_scene(stac_client, path, row, ym)
-            for ym in year_months
-            for path, row in path_rows
-        ]
-        await asyncio.gather(*coros, return_exceptions=True)
+        for ym in year_months:
+            month_coros = [
+                self._process_scene(stac_client, path, row, ym)
+                for path, row in path_rows
+            ]
+            logger.info(f"开始处理月份 {ym}，共 {len(month_coros)} 个场景")
+            await asyncio.gather(*month_coros, return_exceptions=True)
+            logger.info(f"月份 {ym} 所有场景处理完成")
 
         elapsed = time.time() - start_time
         s = self._stats
